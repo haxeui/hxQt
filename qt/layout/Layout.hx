@@ -8,6 +8,16 @@ class Layout extends LayoutItem {
         super();
     }
     
+    public var spacing(null, set):Int;
+    private function set_spacing(value:Int):Int {
+        layoutRef.ptr.setSpacing(value);
+        return value;
+    }
+    
+    public function setContentsMargins(left:Int, top:Int, right:Int, bottom:Int) {
+        layoutRef.ptr.setContentsMargins(left, top, right, bottom);
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,4 +42,10 @@ extern class QLayout extends qt.layout.LayoutItem.QLayoutItem {
                                         public static inline function createInstance():Pointer<QLayout> {
                                             return Pointer.fromRaw(_new());
                                         }
+                                        
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function setSpacing(spacing:Int):Void;
+    public function setContentsMargins(left:Int, top:Int, right:Int, bottom:Int):Void;
 }
