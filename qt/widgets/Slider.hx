@@ -2,22 +2,22 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
-import qt.widgets.AbstractButton.QAbstractButton;
 
-class CheckBox extends AbstractButton {
+class Slider extends AbstractSlider {
     public function new() {
         if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
+            _ref = QSlider.createInstance().reinterpret();
         }
         
         super();
     }
     
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var sliderRef(get, null):Pointer<QSlider>;
+    private function get_sliderRef():Pointer<QSlider> {
         return _ref.reinterpret();
     }
 }
@@ -26,15 +26,14 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
-@:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+@:include('QtWidgets/QSlider.h')
+@:native('QSlider')
+extern class QSlider extends qt.widgets.AbstractSlider.QAbstractSlider {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QSlider")              private static function _new():RawPointer<QSlider>;
+                                        public static inline function createInstance():Pointer<QSlider> {
                                             return Pointer.fromRaw(_new());
                                         }
 }

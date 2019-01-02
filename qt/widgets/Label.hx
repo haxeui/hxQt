@@ -2,22 +2,29 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
-import qt.widgets.AbstractButton.QAbstractButton;
+import cpp.Reference;
+import qt.core.QString;
 
-class CheckBox extends AbstractButton {
+class Label extends Frame {
     public function new() {
         if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
+            _ref = QLabel.createInstance().reinterpret();
         }
         
         super();
     }
     
+    public var text(null, set):String;
+    private function set_text(value:String):String {
+        labelRef.ptr.setText(qt.core.QString.Helper.fromString(value));
+        return value;
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var labelRef(get, null):Pointer<QLabel>;
+    private function get_labelRef():Pointer<QLabel> {
         return _ref.reinterpret();
     }
 }
@@ -26,15 +33,20 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
+@:include('QtWidgets/QLabel.h')
+@:native('QLabel')
 @:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+extern class QLabel extends qt.widgets.Frame.QFrame {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QLabel")              private static function _new():RawPointer<QLabel>;
+                                        public static inline function createInstance():Pointer<QLabel> {
                                             return Pointer.fromRaw(_new());
                                         }
+                                        
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function setText(value:Reference<QString>):Void;
 }

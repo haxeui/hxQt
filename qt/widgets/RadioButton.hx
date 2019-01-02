@@ -4,10 +4,10 @@ import cpp.Pointer;
 import cpp.RawPointer;
 import qt.widgets.AbstractButton.QAbstractButton;
 
-class CheckBox extends AbstractButton {
+class RadioButton extends AbstractButton {
     public function new() {
         if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
+            _ref = QRadioButton.createInstance().reinterpret();
         }
         
         super();
@@ -16,8 +16,8 @@ class CheckBox extends AbstractButton {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var radioButtonRef(get, null):Pointer<QRadioButton>;
+    private function get_radioButtonRef():Pointer<QRadioButton> {
         return _ref.reinterpret();
     }
 }
@@ -26,15 +26,15 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
+@:include('QtWidgets/QRadioButton.h')
+@:native('QRadioButton')
 @:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+extern class QRadioButton extends qt.widgets.AbstractButton.QAbstractButton {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QRadioButton")        private static function _new():RawPointer<QRadioButton>;
+                                        public static inline function createInstance():Pointer<QRadioButton> {
                                             return Pointer.fromRaw(_new());
                                         }
 }

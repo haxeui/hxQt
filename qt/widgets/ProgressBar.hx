@@ -2,22 +2,27 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
-import qt.widgets.AbstractButton.QAbstractButton;
 
-class CheckBox extends AbstractButton {
+class ProgressBar extends Widget {
     public function new() {
         if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
+            _ref = QProgressBar.createInstance().reinterpret();
         }
         
         super();
     }
     
+    public var value(null, set):Int;
+    private function set_value(value:Int):Int {
+        progressBarRef.ptr.setValue(value);
+        return value;
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var progressBarRef(get, null):Pointer<QProgressBar>;
+    private function get_progressBarRef():Pointer<QProgressBar> {
         return _ref.reinterpret();
     }
 }
@@ -26,15 +31,20 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
+@:include('QtWidgets/QProgressBar.h')
+@:native('QProgressBar')
 @:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+extern class QProgressBar extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QProgressBar")        private static function _new():RawPointer<QProgressBar>;
+                                        public static inline function createInstance():Pointer<QProgressBar> {
                                             return Pointer.fromRaw(_new());
                                         }
+                                        
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function setValue(value:Int):Void;
 }

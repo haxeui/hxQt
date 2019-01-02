@@ -6,6 +6,7 @@ import cpp.Reference;
 import qt.core.QString;
 import qt.styles.Style.QStyle;
 
+@:access(qt.core.Object)
 class StyleFactory {
     public static function create(key:String):Style {
         var pointer:RawPointer<QStyle> = QStyleFactory.create(qt.core.QString.Helper.fromString(key));

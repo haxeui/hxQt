@@ -3,31 +3,28 @@ package qt.widgets;
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.Reference;
-import haxe.Constraints.Function;
-import qt.core.Object.QObject;
 import qt.core.QString;
 
-class AbstractButton extends Widget {
+class LineEdit extends Widget {
     public function new() {
+        if (_ref == null) {
+            _ref = QLineEdit.createInstance().reinterpret();
+        }
+        
         super();
     }
     
     public var text(null, set):String;
     private function set_text(value:String):String {
-        abstractButtonRef.ptr.setText(qt.core.QString.Helper.fromString(value));
+        lineEditRef.ptr.setText(qt.core.QString.Helper.fromString(value));
         return value;
-    }
-    
-    public function connectClicked(fn:Function) {
-        var p:Pointer<QAbstractButton> = _ref.reinterpret();
-        QObject.connect(p.ptr, QAbstractButton.clicked, p.ptr, fn);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var abstractButtonRef(get, null):Pointer<QAbstractButton>;
-    private function get_abstractButtonRef():Pointer<QAbstractButton> {
+    public var lineEditRef(get, null):Pointer<QLineEdit>;
+    private function get_lineEditRef():Pointer<QLineEdit> {
         return _ref.reinterpret();
     }
 }
@@ -36,17 +33,20 @@ class AbstractButton extends Widget {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QAbstractButton.h')
-@:native('QAbstractButton')
+@:include('QtWidgets/QLineEdit.h')
+@:native('QLineEdit')
 @:structAccess
-extern class QAbstractButton extends qt.widgets.Widget.QWidget {
+extern class QLineEdit extends qt.widgets.Widget.QWidget {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Creation functions
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("new QLineEdit")           private static function _new():RawPointer<QLineEdit>;
+                                        public static inline function createInstance():Pointer<QLineEdit> {
+                                            return Pointer.fromRaw(_new());
+                                        }
+                                        
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setText(value:Reference<QString>):Void;
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Signals
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("&QAbstractButton::clicked") public static var clicked:Function;
 }

@@ -2,22 +2,17 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
-import qt.widgets.AbstractButton.QAbstractButton;
 
-class CheckBox extends AbstractButton {
+class Frame extends Widget {
     public function new() {
-        if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
-        }
-        
         super();
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var frameRef(get, null):Pointer<QFrame>;
+    private function get_frameRef():Pointer<QFrame> {
         return _ref.reinterpret();
     }
 }
@@ -26,15 +21,15 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
+@:include('QtWidgets/QFrame.h')
+@:native('QFrame')
 @:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+extern class QFrame extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QFrame")              private static function _new():RawPointer<QFrame>;
+                                        public static inline function createInstance():Pointer<QFrame> {
                                             return Pointer.fromRaw(_new());
                                         }
 }

@@ -5,7 +5,7 @@ import cpp.Pointer;
 import haxe.Constraints.Function;
 
 class Object {
-    public var _ref:Pointer<QObject>;
+    private var _ref:Pointer<QObject>;
     
     public function new() {
     }
