@@ -2,6 +2,8 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
+import haxe.Constraints.Function;
+import qt.core.Object.QObject;
 
 class ProgressBar extends Widget {
     public function new() {
@@ -16,6 +18,11 @@ class ProgressBar extends Widget {
     private function set_value(value:Int):Int {
         progressBarRef.ptr.setValue(value);
         return value;
+    }
+    
+    public function connectValueChanged(fn:Function) {
+        var p:Pointer<QProgressBar> = _ref.reinterpret();
+        QObject.connect(p.ptr, QProgressBar.valueChanged, p.ptr, fn);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,4 +54,9 @@ extern class QProgressBar extends qt.widgets.Widget.QWidget {
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setValue(value:Int):Void;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("&QProgressBar::valueChanged") public static var valueChanged:Function;
 }

@@ -1,6 +1,8 @@
 package qt.widgets;
 
 import cpp.Pointer;
+import haxe.Constraints.Function;
+import qt.core.Object.QObject;
 import qt.core.Orientation;
 
 class AbstractSlider extends Widget {
@@ -18,6 +20,11 @@ class AbstractSlider extends Widget {
     private function set_orientation(value:Orientation):Orientation {
         abstractSliderRef.ptr.setOrientation(value);
         return value;
+    }
+    
+    public function connectValueChanged(fn:Function) {
+        var p:Pointer<QAbstractSlider> = _ref.reinterpret();
+        QObject.connect(p.ptr, QAbstractSlider.valueChanged, p.ptr, fn);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,4 +49,9 @@ extern class QAbstractSlider extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setValue(value:Int):Void;
     public function setOrientation(value:Orientation):Void;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("&QAbstractSlider::valueChanged") public static var valueChanged:Function;
 }
