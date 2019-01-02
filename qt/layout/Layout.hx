@@ -1,26 +1,18 @@
-package qt.widgets;
+package qt.layout;
+
 import cpp.Pointer;
 import cpp.RawPointer;
-import cpp.Reference;
-import haxe.Constraints.Function;
-import qt.core.Object.QObject;
-import qt.core.QString;
-import qt.widgets.AbstractButton.QAbstractButton;
 
-class CheckBox extends AbstractButton {
+class Layout extends LayoutItem {
     public function new() {
-        if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
-        }
-        
         super();
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var layoutRef(get, null):Pointer<QLayout>;
+    private function get_layoutRef():Pointer<QLayout> {
         return _ref.reinterpret();
     }
 }
@@ -29,15 +21,15 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
+@:include('QtWidgets/QLayout.h')
+@:native('QLayout')
 @:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+extern class QLayout extends qt.layout.LayoutItem.QLayoutItem {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QLayout")             private static function _new():RawPointer<QLayout>;
+                                        public static inline function createInstance():Pointer<QLayout> {
                                             return Pointer.fromRaw(_new());
                                         }
 }

@@ -1,13 +1,7 @@
 package qt.core;
 
-import cpp.Callable;
-import cpp.ConstCharStar;
-import cpp.ConstPointer;
 import cpp.ConstStar;
 import cpp.Pointer;
-import cpp.RawPointer;
-import cpp.Reference;
-import cpp.Star;
 import haxe.Constraints.Function;
 
 class Object {
@@ -25,7 +19,7 @@ class Object {
 }
 
 @:unreflective
-@:include('QtCore/qobject.h')
+@:include('QtCore/QObject.h')
 @:native('QObject')
 extern class QObject {
     @:native('QObject::connect') public static function connect(sender:ConstStar<QObject>, signal:Any, receiver:ConstStar<QObject>, member:Function):cpp.Void;

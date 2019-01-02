@@ -6,6 +6,7 @@ import cpp.Reference;
 import cpp.Void;
 import qt.core.Object;
 import qt.core.QString;
+import qt.layout.Layout;
 
 class Widget extends Object {
     public function new() {
@@ -30,7 +31,13 @@ class Widget extends Object {
 
     public var parent(null, set):Widget;
     private function set_parent(value:Widget):Widget {
-        widgetRef.ptr.setParent(value.widgetRef);
+        widgetRef.ptr.setParent(value.widgetRef.get_raw());
+        return value;
+    }
+    
+    public var layout(null, set):Layout;
+    private function set_layout(value:Layout):Layout {
+        widgetRef.ptr.setLayout(value.layoutRef.get_raw());
         return value;
     }
     
@@ -75,7 +82,7 @@ class Widget extends Object {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/qwidget.h')
+@:include('QtWidgets/QWidget.h')
 @:native('QWidget')
 @:structAccess
 extern class QWidget extends qt.core.Object.QObject {
@@ -96,6 +103,7 @@ extern class QWidget extends qt.core.Object.QObject {
     public function y():Int;
     public function move(x:Int, y:Int):Void;
     public function setGeometry(x:Int, y:Int, width:Int, height:Int):Void;
-    public function setParent(parent:Pointer<QWidget>):Void;
+    public function setParent(parent:RawPointer<QWidget>):Void;
+    public function setLayout(layout:RawPointer<qt.layout.Layout.QLayout>):Void;
     public function setWindowTitle(value:Reference<QString>):Void;
 }

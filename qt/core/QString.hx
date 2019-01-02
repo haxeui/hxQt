@@ -1,7 +1,7 @@
 package qt.core;
 
 @:unreflective
-@:include('QtCore/qstring.h')
+@:include('QtCore/QString.h')
 @:native('QString')
 extern class QString {
 }

@@ -21,7 +21,7 @@ class Application {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/qapplication.h')
+@:include('QtWidgets/QApplication.h')
 @:native('QApplication')
 extern class QApplication {
     public function exec():Void;

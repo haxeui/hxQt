@@ -36,7 +36,7 @@ class AbstractButton extends Widget {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/qabstractbutton.h')
+@:include('QtWidgets/QAbstractButton.h')
 @:native('QAbstractButton')
 @:structAccess
 extern class QAbstractButton extends qt.widgets.Widget.QWidget {

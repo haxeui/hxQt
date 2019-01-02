@@ -1,26 +1,22 @@
-package qt.widgets;
+package qt.layout;
+
 import cpp.Pointer;
 import cpp.RawPointer;
-import cpp.Reference;
-import haxe.Constraints.Function;
-import qt.core.Object.QObject;
-import qt.core.QString;
-import qt.widgets.AbstractButton.QAbstractButton;
 
-class CheckBox extends AbstractButton {
+class VBoxLayout extends BoxLayout {
     public function new() {
         if (_ref == null) {
-            _ref = QCheckBox.createInstance().reinterpret();
+            _ref = QVBoxLayout.createInstance().reinterpret();
         }
         
-        super();
+        super(qt.layout.BoxLayout.Direction.LeftToRight);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var checkBoxRef(get, null):Pointer<QCheckBox>;
-    private function get_checkBoxRef():Pointer<QCheckBox> {
+    public var vboxLayoutRef(get, null):Pointer<QVBoxLayout>;
+    private function get_vboxLayoutRef():Pointer<QVBoxLayout> {
         return _ref.reinterpret();
     }
 }
@@ -29,15 +25,15 @@ class CheckBox extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QCheckBox.h')
-@:native('QCheckBox')
-@:structAccess
-extern class QCheckBox extends qt.widgets.AbstractButton.QAbstractButton {
+@:include('QtWidgets/QBoxLayout.h')
+@:native('QVBoxLayout')
+extern class QVBoxLayout extends qt.layout.BoxLayout.QBoxLayout {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QCheckBox")           private static function _new():RawPointer<QCheckBox>;
-                                        public static inline function createInstance():Pointer<QCheckBox> {
+    @:native("new QVBoxLayout")         private static function _new():RawPointer<QVBoxLayout>;
+                                        public static inline function createInstance():Pointer<QVBoxLayout> {
                                             return Pointer.fromRaw(_new());
                                         }
 }
+
