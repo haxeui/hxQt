@@ -3,36 +3,26 @@ package qt.widgets;
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.Reference;
-import qt.gui.Pixmap;
-import qt.gui.Pixmap.QPixmap;
 import qt.core.QString;
 
-class Label extends Frame {
+class ComboBox extends Widget {
     public function new() {
         if (_ref == null) {
-            _ref = QLabel.createInstance().reinterpret();
+            _ref = QComboBox.createInstance().reinterpret();
         }
         
         super();
     }
     
-    public var text(null, set):String;
-    private function set_text(value:String):String {
-        labelRef.ptr.setText(qt.core.QString.Helper.fromString(value));
-        return value;
-    }
-    
-    public var pixmap(null, set):Pixmap;
-    private function set_pixmap(value:Pixmap):Pixmap {
-        labelRef.ptr.setPixmap(value.pixmapRef.ref);
-        return value;
+    public function insertItem(index:Int, text:String) {
+        comboBoxRef.ptr.insertItem(index, qt.core.QString.Helper.fromString(text));
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var labelRef(get, null):Pointer<QLabel>;
-    private function get_labelRef():Pointer<QLabel> {
+    public var comboBoxRef(get, null):Pointer<QComboBox>;
+    private function get_comboBoxRef():Pointer<QComboBox> {
         return _ref.reinterpret();
     }
 }
@@ -41,21 +31,20 @@ class Label extends Frame {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QLabel.h')
-@:native('QLabel')
+@:include('QtWidgets/QComboBox.h')
+@:native('QComboBox')
 @:structAccess
-extern class QLabel extends qt.widgets.Frame.QFrame {
+extern class QComboBox extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QLabel")              private static function _new():RawPointer<QLabel>;
-                                        public static inline function createInstance():Pointer<QLabel> {
+    @:native("new QComboBox")           private static function _new():RawPointer<QComboBox>;
+                                        public static inline function createInstance():Pointer<QComboBox> {
                                             return Pointer.fromRaw(_new());
                                         }
                                         
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function setText(value:Reference<QString>):Void;
-    public function setPixmap(value:Reference<QPixmap>):Void;
+    public function insertItem(index:Int, text:Reference<QString>):Void;
 }

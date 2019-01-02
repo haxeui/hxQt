@@ -6,6 +6,8 @@ import cpp.Reference;
 import haxe.Constraints.Function;
 import qt.core.Object.QObject;
 import qt.core.QString;
+import qt.gui.Icon;
+import qt.gui.Icon.QIcon;
 
 class AbstractButton extends Widget {
     public function new() {
@@ -15,6 +17,12 @@ class AbstractButton extends Widget {
     public var text(null, set):String;
     private function set_text(value:String):String {
         abstractButtonRef.ptr.setText(qt.core.QString.Helper.fromString(value));
+        return value;
+    }
+    
+    public var icon(null, set):Icon;
+    private function set_icon(value:Icon):Icon {
+        abstractButtonRef.ptr.setIcon(value.iconRef.ref);
         return value;
     }
     
@@ -44,6 +52,7 @@ extern class QAbstractButton extends qt.widgets.Widget.QWidget {
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setText(value:Reference<QString>):Void;
+    public function setIcon(value:Reference<QIcon>):Void;
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Signals

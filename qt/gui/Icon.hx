@@ -1,23 +1,23 @@
-package qt.widgets;
-
+package qt.gui;
 import cpp.Pointer;
 import cpp.RawPointer;
-import qt.widgets.AbstractButton.QAbstractButton;
+import cpp.Reference;
+import qt.gui.Pixmap.QPixmap;
 
-class PushButton extends AbstractButton {
-    public function new() {
+class Icon {
+    private var _ref:Pointer<Icon>;
+    
+    public function new(pixmap:Pixmap) {
         if (_ref == null) {
-            _ref = QPushButton.createInstance().reinterpret();
+            _ref = QIcon.createInstance(pixmap.pixmapRef.ref).reinterpret();
         }
-        
-        super();
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var pushButtonRef(get, null):Pointer<QPushButton>;
-    private function get_pushButtonRef():Pointer<QPushButton> {
+    public var iconRef(get, null):Pointer<QIcon>;
+    private function get_iconRef():Pointer<QIcon> {
         return _ref.reinterpret();
     }
 }
@@ -26,15 +26,15 @@ class PushButton extends AbstractButton {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QPushButton.h')
-@:native('QPushButton')
+@:include('QtGui/QIcon.h')
+@:native('QIcon')
 @:structAccess
-extern class QPushButton extends qt.widgets.AbstractButton.QAbstractButton {
+extern class QIcon {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QPushButton")         private static function _new():RawPointer<QPushButton>;
-                                        public static inline function createInstance():Pointer<QPushButton> {
-                                            return Pointer.fromRaw(_new());
+    @:native("new QIcon")               private static function _new(pixmap:Reference<QPixmap>):RawPointer<QIcon>;
+                                        public static inline function createInstance(pixmap:Reference<QPixmap>):Pointer<QIcon> {
+                                            return Pointer.fromRaw(_new(pixmap));
                                         }
 }
