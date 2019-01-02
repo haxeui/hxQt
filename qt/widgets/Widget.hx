@@ -6,6 +6,8 @@ import cpp.Reference;
 import cpp.Void;
 import qt.core.Object;
 import qt.core.QString;
+import qt.core.Size;
+import qt.core.Size.QSize;
 import qt.layout.Layout;
 
 class Widget extends Object {
@@ -69,6 +71,33 @@ class Widget extends Object {
         return value;
     }
     
+    public var width(get, set):Int;
+    private function get_width():Int {
+        return widgetRef.ptr.width();
+    }
+    private function set_width(value:Int):Int {
+        widgetRef.ptr.resize(value, height);
+        return value;
+    }
+
+    public var height(get, set):Int;
+    private function get_height():Int {
+        return widgetRef.ptr.height();
+    }
+    private function set_height(value:Int):Int {
+        widgetRef.ptr.resize(width, value);
+        return value;
+    }
+    
+    public var sizeHint(get, null):Size;
+    @:access(qt.core.Size)
+    private function get_sizeHint():Size {
+        var qs:QSize = widgetRef.ptr.sizeHint();
+        var size = new Size();
+        size._ref = qs;
+        return size;
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,6 +130,9 @@ extern class QWidget extends qt.core.Object.QObject {
     public function resize(width:Int, height:Int):Void;
     public function x():Int;
     public function y():Int;
+    public function width():Int;
+    public function height():Int;
+    public function sizeHint():QSize;
     public function move(x:Int, y:Int):Void;
     public function setGeometry(x:Int, y:Int, width:Int, height:Int):Void;
     public function setParent(parent:RawPointer<QWidget>):Void;
