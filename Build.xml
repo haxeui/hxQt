@@ -1,0 +1,14 @@
+<xml>
+    <echo value="Using Qt from: ${QTPATH}" />
+    
+    <section>
+        <files id="haxe">
+            <compilerflag value="-I${QTPATH}/include"/>
+        </files>
+        <target id="haxe">
+            <lib name="${QTPATH}/lib/Qt5Core.lib" />
+            <lib name="${QTPATH}/lib/Qt5Widgets.lib" />
+            <lib name="${QTPATH}/lib/Qt5Gui.lib" />
+        </target>
+    </section>        
+</xml>

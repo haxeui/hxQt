@@ -4,6 +4,7 @@ import cpp.Pointer;
 import cpp.RawPointer;
 import qt.styles.Style;
 
+@:buildXml("<include name=\"${haxelib:hxQt}/Build.xml\" />")
 @:include('QtWidgets/qapplication.h')
 class Application {
     private var _ref:Pointer<QApplication>;
