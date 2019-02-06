@@ -12,8 +12,8 @@ class MainWindow extends Widget {
         super();
     }
     
-    public var centralWindow(null, set):qt.widgets.Widget;
-    private function set_centralWindow(value:qt.widgets.Widget):qt.widgets.Widget {
+    public var centralWidget(null, set):qt.widgets.Widget;
+    private function set_centralWidget(value:qt.widgets.Widget):qt.widgets.Widget {
         mainWindowRef.ptr.setCentralWidget(value.widgetRef);
         return value;
     }
