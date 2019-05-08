@@ -6,13 +6,12 @@ import qt.styles.Style;
 
 @:buildXml("<include name=\"${haxelib:hxQt}/Build.xml\" />")
 @:include('QtWidgets/qapplication.h')
-class Application {
-    private var _ref:Pointer<QApplication>;
-    
+class Application extends GuiApplication {
     public function new() {
         untyped __cpp__('char *argv[] = {NULL};');
         untyped __cpp__('int argc = sizeof(argv) / sizeof(char*) - 1;');
         _ref = untyped __cpp__('new QApplication(argc, argv)');
+        super();
     }
     
     public static var style(null, set):Style;
@@ -22,7 +21,14 @@ class Application {
     }
     
     public function exec() {
-        _ref.ptr.exec();
+        applicationRef.ptr.exec();
+    }
+    
+    @:access(qt.core.Object)
+    public function postEvent(receiver:Object, event:Event) {
+        var objPtr:Pointer<qt.core.Object.QObject> = receiver._eventRecieverProxy.reinterpret();
+        var eventPtr = event.eventRef;
+        applicationRef.ptr.postEvent(objPtr.raw, eventPtr.raw);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +47,9 @@ class Application {
 @:include('QtWidgets/QApplication.h')
 @:native('QApplication')
 @:structAccess
-extern class QApplication {
+extern class QApplication extends qt.core.GuiApplication.QGuiApplication {
     public function exec():Void;
+    public function postEvent(receiver:RawPointer<qt.core.Object.QObject>, event:RawPointer<qt.core.Event.QEvent>):Void;
+    
     @:native("QApplication::setStyle") public static function setStyle(style:RawPointer<qt.styles.Style.QStyle>):Void;
 }

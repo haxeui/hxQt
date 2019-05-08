@@ -4,6 +4,7 @@
     <section>
         <files id="haxe">
             <compilerflag value="-I${QTPATH}/include"/>
+            <compilerflag value="-I${haxelib:hxQt}/include"/>
         </files>
         <target id="haxe">
             <lib name="${QTPATH}/lib/Qt5Core.lib" />

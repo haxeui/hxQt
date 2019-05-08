@@ -1,0 +1,16 @@
+package qt.core;
+
+class GuiApplication extends CoreApplication {
+    public function new() {
+        super();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extern
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+@:unreflective
+@:include('QtGui/QGuiApplication.h')
+@:native('QGuiApplication')
+extern class QGuiApplication extends qt.core.CoreApplication.QCoreApplication {
+}
