@@ -14,7 +14,7 @@ class EventRecieverProxy : public QObject  {
     EventRecieverProxy() {
     }
     
-    bool event(QEvent* event) {
+    bool event(QEvent* event) override {
         this->lastEvent = event;
         this->callback();
         return true;

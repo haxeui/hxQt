@@ -32,7 +32,7 @@ extern class QSlider extends qt.widgets.AbstractSlider.QAbstractSlider {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QSlider")              private static function _new():RawPointer<QSlider>;
+    @:native("new QSlider")             private static function _new():RawPointer<QSlider>;
                                         public static inline function createInstance():Pointer<QSlider> {
                                             return Pointer.fromRaw(_new());
                                         }

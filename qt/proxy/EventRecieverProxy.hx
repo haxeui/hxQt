@@ -1,4 +1,5 @@
 package qt.proxy;
+
 import cpp.Pointer;
 import cpp.RawPointer;
 
