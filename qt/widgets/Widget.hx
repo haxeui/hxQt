@@ -6,8 +6,8 @@ import cpp.Reference;
 import cpp.Void;
 import qt.core.Object;
 import qt.core.QString;
+import qt.core.Rect;
 import qt.core.Size;
-import qt.core.Size.QSize;
 import qt.layout.Layout;
 
 class Widget extends Object {
@@ -49,8 +49,26 @@ class Widget extends Object {
         return value;
     }
     
+    public var styleSheet(null, set):String;
+    private function set_styleSheet(value:String):String {
+        widgetRef.ptr.setStyleSheet(qt.core.QString.Helper.fromString(value));
+        return value;
+    }
+    
+    public var childrenRect(get, null):Rect;
+    @:access(qt.core.Rect)
+    private function get_childrenRect():Rect {
+        var rc = new Rect();
+        rc._ref = widgetRef.ptr.childrenRect();
+        return rc;
+    }
+    
     public function move(x:Int, y:Int) {
         widgetRef.ptr.move(x, y);
+    }
+
+    public function adjustSize() {
+        widgetRef.ptr.adjustSize();
     }
 
     public var x(get, set):Int;
@@ -132,10 +150,14 @@ extern class QWidget extends qt.core.Object.QObject {
     public function y():Int;
     public function width():Int;
     public function height():Int;
-    public function sizeHint():QSize;
+    public function sizeHint():qt.core.Size.QSize;
     public function move(x:Int, y:Int):Void;
     public function setGeometry(x:Int, y:Int, width:Int, height:Int):Void;
+    public function geometry():qt.core.Rect.QRect;
+    public function childrenRect():qt.core.Rect.QRect;
     public function setParent(parent:RawPointer<QWidget>):Void;
     public function setLayout(layout:RawPointer<qt.layout.Layout.QLayout>):Void;
     public function setWindowTitle(value:Reference<QString>):Void;
+    public function adjustSize():Void;
+    public function setStyleSheet(value:Reference<QString>):Void;
 }
