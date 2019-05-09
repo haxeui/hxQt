@@ -13,7 +13,12 @@ class ScrollArea extends AbstractScrollArea {
         super();
     }
     
-    public var widget(null, set):Widget;
+    public var widget(get, set):Widget;
+    private function get_widget():Widget {
+        var p:RawPointer<QWidget> = scrollAreaRef.ptr.widget();
+        var widget = new Widget(Pointer.fromRaw(p));
+        return widget;
+    }
     private function set_widget(value:Widget):Widget {
         scrollAreaRef.ptr.setWidget(value.widgetRef.get_raw());
         return value;
@@ -53,6 +58,7 @@ extern class QScrollArea extends qt.widgets.AbstractScrollArea.QAbstractScrollAr
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function setWidget(parent:RawPointer<QWidget>):Void;
+    public function setWidget(widget:RawPointer<QWidget>):Void;
+    public function widget():RawPointer<QWidget>;
     public function setWidgetResizable(resizable:Bool):Void;
 }

@@ -8,10 +8,14 @@ import qt.core.Object;
 import qt.core.QString;
 import qt.core.Rect;
 import qt.core.Size;
+import qt.gui.Font;
 import qt.layout.Layout;
 
 class Widget extends Object {
-    public function new() {
+    public function new(ref:Pointer<QWidget> = null) { // TODO: far from ideal
+        if (ref != null) {
+            _ref = ref.reinterpret();
+        }
         if (_ref == null) {
             _ref = QWidget.createInstance().reinterpret();
         }
@@ -107,6 +111,15 @@ class Widget extends Object {
         return value;
     }
     
+    public var font(get, set):Font;
+    private function get_font():Font {
+        var f = widgetRef.ptr.font();
+        return Font.fromRef(Pointer.addressOf(f));
+    }
+    private function set_font(value:Font):Font {
+        return value;
+    }
+    
     public var sizeHint(get, null):Size;
     @:access(qt.core.Size)
     private function get_sizeHint():Size {
@@ -114,6 +127,15 @@ class Widget extends Object {
         var size = new Size();
         size._ref = qs;
         return size;
+    }
+    
+    public var disabled(get, set):Bool;
+    private function get_disabled():Bool {
+        return !widgetRef.ptr.isEnabled();
+    }
+    private function set_disabled(value:Bool):Bool {
+        widgetRef.ptr.setEnabled(!value);
+        return value;
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,4 +182,8 @@ extern class QWidget extends qt.core.Object.QObject {
     public function setWindowTitle(value:Reference<QString>):Void;
     public function adjustSize():Void;
     public function setStyleSheet(value:Reference<QString>):Void;
+    public function setEnabled(value:Bool):Void;
+    public function isEnabled():Bool;
+    public function font():qt.gui.Font.QFont;
+    public function setFont(value:Reference<qt.gui.Font.QFont>):Void;
 }

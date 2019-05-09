@@ -1,10 +1,20 @@
 package qt.widgets;
 
 import cpp.Pointer;
+import qt.core.Size;
 
 class AbstractScrollArea extends Frame {
     public function new() {
         super();
+    }
+    
+    public var maximumViewportSize(get, null):Size;
+    @:access(qt.core.Size)
+    private function get_maximumViewportSize():Size {
+        var qs:QSize = abstractScrollAreaRef.ptr.maximumViewportSize();
+        var size = new Size();
+        size._ref = qs;
+        return size;
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -24,4 +34,5 @@ class AbstractScrollArea extends Frame {
 @:native('QAbstractScrollArea')
 @:structAccess
 extern class QAbstractScrollArea extends qt.widgets.Frame.QFrame {
+    public function maximumViewportSize():qt.core.Size.QSize;
 }

@@ -25,6 +25,15 @@ class AbstractButton extends Widget {
         abstractButtonRef.ptr.setIcon(value.iconRef.ref);
         return value;
     }
+
+    public var checked(get, set):Bool;
+    private function get_checked():Bool {
+        return abstractButtonRef.ptr.isChecked();
+    }
+    private function set_checked(value:Bool):Bool {
+        abstractButtonRef.ptr.setChecked(value);
+        return value;
+    }
     
     public function connectClicked(fn:Function) {
         var p:Pointer<QAbstractButton> = _ref.reinterpret();
@@ -53,6 +62,8 @@ extern class QAbstractButton extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setText(value:Reference<QString>):Void;
     public function setIcon(value:Reference<QIcon>):Void;
+    public function setChecked(value:Bool):Void;
+    public function isChecked():Bool;
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Signals

@@ -4,6 +4,7 @@ import cpp.Pointer;
 import cpp.RawPointer;
 import haxe.Constraints.Function;
 import qt.core.Object.QObject;
+import qt.core.Orientation;
 
 class ProgressBar extends Widget {
     public function new() {
@@ -17,6 +18,12 @@ class ProgressBar extends Widget {
     public var value(null, set):Int;
     private function set_value(value:Int):Int {
         progressBarRef.ptr.setValue(value);
+        return value;
+    }
+    
+    public var orientation(null, set):Orientation;
+    private function set_orientation(value:Orientation):Orientation {
+        progressBarRef.ptr.setOrientation(value);
         return value;
     }
     
@@ -54,6 +61,7 @@ extern class QProgressBar extends qt.widgets.Widget.QWidget {
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setValue(value:Int):Void;
+    public function setOrientation(value:Orientation):Void;
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Signals

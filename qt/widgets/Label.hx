@@ -22,9 +22,21 @@ class Label extends Frame {
         return value;
     }
     
+    private var _pixmap:Pixmap = null;
     public var pixmap(null, set):Pixmap;
     private function set_pixmap(value:Pixmap):Pixmap {
+        if (_pixmap != null) {
+            _pixmap.pixmapRef.destroy();
+            _pixmap = null;
+        }
         labelRef.ptr.setPixmap(value.pixmapRef.ref);
+        _pixmap = value;
+        return value;
+    }
+    
+    public var pixmapResource(null, set):String;
+    private function set_pixmapResource(value:String):String {
+        this.pixmap = Pixmap.fromResource(value);
         return value;
     }
     
