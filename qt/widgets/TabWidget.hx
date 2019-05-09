@@ -1,9 +1,12 @@
 package qt.widgets;
+
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.Reference;
+import qt.core.Object.QObject;
 import qt.core.QString;
 import qt.widgets.Widget.QWidget;
+import haxe.Constraints.Function;
 
 class TabWidget extends Widget {
     public function new() {
@@ -16,6 +19,12 @@ class TabWidget extends Widget {
     
     public function addTab(page:Widget, label:String):Int {
         return tabWidgetRef.ptr.addTab(page.widgetRef.get_raw(), qt.core.QString.Helper.fromString(label));
+    }
+    
+    
+    public function connectCurrentChanged(fn:Function) {
+        var p:Pointer<QTabWidget> = _ref.reinterpret();
+        QObject.connect(p.ptr, QTabWidget.currentChanged, p.ptr, fn);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,4 +56,9 @@ extern class QTabWidget extends qt.widgets.Widget.QWidget {
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function addTab(page:RawPointer<QWidget>, label:Reference<QString>):Int;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("&QTabWidget::currentChanged") public static var currentChanged:Function;
 }
