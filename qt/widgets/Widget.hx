@@ -137,6 +137,15 @@ class Widget extends Object {
         widgetRef.ptr.setEnabled(!value);
         return value;
     }
+
+    public var mouseTracking(get, set):Bool;
+    private function get_mouseTracking():Bool {
+        return widgetRef.ptr.hasMouseTracking();
+    }
+    private function set_mouseTracking(value:Bool):Bool {
+        widgetRef.ptr.setMouseTracking(value);
+        return value;
+    }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
@@ -186,4 +195,6 @@ extern class QWidget extends qt.core.Object.QObject {
     public function isEnabled():Bool;
     public function font():qt.gui.Font.QFont;
     public function setFont(value:Reference<qt.gui.Font.QFont>):Void;
+    public function hasMouseTracking():Bool;
+    public function setMouseTracking(value:Bool):Void;
 }
