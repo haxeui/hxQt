@@ -165,6 +165,13 @@ class Widget extends Object {
         return value;
     }
     
+    public var eventFilter(null, set):Object;
+    private function set_eventFilter(value:Object):Object {
+        var p = value._ref.raw;
+        widgetRef.ptr.installEventFilter(p);
+        return value;
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +188,7 @@ class Widget extends Object {
 @:include('QtWidgets/QWidget.h')
 @:native('QWidget')
 @:structAccess
-extern class QWidget extends qt.core.Object.QObject {
+extern class QWidget extends QObject {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,10 +209,10 @@ extern class QWidget extends qt.core.Object.QObject {
     public function sizeHint():qt.core.Size.QSize;
     public function move(x:Int, y:Int):Void;
     public function setGeometry(x:Int, y:Int, width:Int, height:Int):Void;
-    public function geometry():qt.core.Rect.QRect;
-    public function childrenRect():qt.core.Rect.QRect;
+    public function geometry():QRect;
+    public function childrenRect():QRect;
     public function setParent(parent:RawPointer<QWidget>):Void;
-    public function setLayout(layout:RawPointer<qt.layout.Layout.QLayout>):Void;
+    public function setLayout(layout:RawPointer<QLayout>):Void;
     public function setWindowTitle(value:Reference<QString>):Void;
     public function adjustSize():Void;
     public function setStyleSheet(value:Reference<QString>):Void;
@@ -214,9 +221,10 @@ extern class QWidget extends qt.core.Object.QObject {
     public function setVisible(value:Bool):Void;
     public function isVisible():Bool;
     public function font():qt.gui.Font.QFont;
-    public function setFont(value:Reference<qt.gui.Font.QFont>):Void;
+    public function setFont(value:Reference<QFont>):Void;
     public function hasMouseTracking():Bool;
     public function setMouseTracking(value:Bool):Void;
     public function updatesEnabled():Bool;
     public function setUpdatesEnabled(value:Bool):Void;
+    public function installEventFilter(filterObj:RawPointer<QObject>):Void;
 }
