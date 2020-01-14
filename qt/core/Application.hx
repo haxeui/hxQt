@@ -2,6 +2,11 @@ package qt.core;
 
 import cpp.Pointer;
 import cpp.RawPointer;
+import qt.core.Event.QEvent;
+import qt.core.GuiApplication.QGuiApplication;
+import qt.core.Object.QObject;
+import qt.gui.Palette;
+import qt.gui.Palette.QPalette;
 import qt.styles.Style;
 
 @:buildXml("<include name=\"${haxelib:hxQt}/Build.xml\" />")
@@ -20,13 +25,22 @@ class Application extends GuiApplication {
         return value;
     }
     
+    public static var palette(get, null):Palette;
+    @:access(qt.gui.Palette)
+    private static function get_palette():Palette {
+        var palette = new Palette();
+        var p = QApplication.palette();
+        palette._ref = p;
+        return palette;
+    }
+    
     public function exec() {
         applicationRef.ptr.exec();
     }
     
     @:access(qt.core.Object)
     public function postEvent(receiver:Object, event:Event) {
-        var objPtr:Pointer<qt.core.Object.QObject> = receiver._eventRecieverProxy.reinterpret();
+        var objPtr:Pointer<QObject> = receiver._eventRecieverProxy.reinterpret();
         var eventPtr = event.eventRef;
         applicationRef.ptr.postEvent(objPtr.raw, eventPtr.raw);
     }
@@ -47,9 +61,10 @@ class Application extends GuiApplication {
 @:include('QtWidgets/QApplication.h')
 @:native('QApplication')
 @:structAccess
-extern class QApplication extends qt.core.GuiApplication.QGuiApplication {
+extern class QApplication extends QGuiApplication {
     public function exec():Void;
-    public function postEvent(receiver:RawPointer<qt.core.Object.QObject>, event:RawPointer<qt.core.Event.QEvent>):Void;
+    public function postEvent(receiver:RawPointer<QObject>, event:RawPointer<QEvent>):Void;
     
-    @:native("QApplication::setStyle") public static function setStyle(style:RawPointer<qt.styles.Style.QStyle>):Void;
+    @:native("QApplication::palette") public static function palette():QPalette;
+    @:native("QApplication::setStyle") public static function setStyle(style:RawPointer<QStyle>):Void;
 }

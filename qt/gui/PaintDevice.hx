@@ -3,7 +3,7 @@ package qt.gui;
 import cpp.Pointer;
 
 class PaintDevice {
-    private var _ref:Pointer<PaintDevice>;
+    private var _ref:Pointer<QPaintDevice>;
     
     public function new() {
     }

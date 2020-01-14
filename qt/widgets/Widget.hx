@@ -9,6 +9,8 @@ import qt.core.QString;
 import qt.core.Rect;
 import qt.core.Size;
 import qt.gui.Font;
+import qt.gui.Palette;
+import qt.gui.Palette.QPalette;
 import qt.layout.Layout;
 
 class Widget extends Object {
@@ -172,6 +174,15 @@ class Widget extends Object {
         return value;
     }
     
+    public var palette(get, null):Palette;
+    @:access(qt.gui.Palette)
+    private function get_palette():Palette {
+        var palette = new Palette();
+        var p = widgetRef.ptr.palette();
+        palette._ref = p;
+        return palette;
+    }
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -227,4 +238,5 @@ extern class QWidget extends QObject {
     public function updatesEnabled():Bool;
     public function setUpdatesEnabled(value:Bool):Void;
     public function installEventFilter(filterObj:RawPointer<QObject>):Void;
+    public function palette():QPalette;
 }
