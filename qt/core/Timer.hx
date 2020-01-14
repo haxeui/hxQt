@@ -1,0 +1,64 @@
+package qt.core;
+
+import cpp.Pointer;
+import cpp.RawPointer;
+import haxe.Constraints.Function;
+import qt.core.Object.QObject;
+
+class Timer extends Object {
+    public function new() {
+        if (_ref == null) {
+            _ref = QTimer.createInstance().reinterpret();
+        }
+        super();
+    }
+    
+    public function connectTimeout(fn:Function) {
+        var p:Pointer<QTimer> = _ref.reinterpret();
+        QObject.connect(p.ptr, QTimer.timeout, p.ptr, fn);
+    }
+    
+    public function start(msec:Int) {
+        timerRef.ptr.start(msec);
+    }
+    
+    public function stop() {
+        timerRef.ptr.stop();
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public var timerRef(get, null):Pointer<QTimer>;
+    private function get_timerRef():Pointer<QTimer> {
+        return _ref.reinterpret();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extern
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+@:unreflective
+@:include('QtCore/QTimer.h')
+@:native('QTimer')
+@:structAccess
+extern class QTimer extends QObject {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Creation functions
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("new QTimer")              private static function _new():RawPointer<QTimer>;
+                                        public static inline function createInstance():Pointer<QTimer> {
+                                            return Pointer.fromRaw(_new());
+                                        }
+            
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function start(msec:Int):Void;
+    public function stop():Void;
+                                        
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("&QTimer::timeout")        public static var timeout:Function;
+}

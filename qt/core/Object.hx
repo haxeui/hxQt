@@ -12,7 +12,7 @@ class Object {
     
     public function new() {
         if (_ref == null) {
-            _ref = QObject.createInstance();
+            _ref = QObject.createInstance().reinterpret();
         }
         _eventRecieverProxy = EventRecieverProxy.createInstance();
         _eventRecieverProxy.ptr.callback = eventCallback;

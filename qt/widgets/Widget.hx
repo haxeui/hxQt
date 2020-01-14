@@ -137,6 +137,15 @@ class Widget extends Object {
         widgetRef.ptr.setEnabled(!value);
         return value;
     }
+    
+    public var visible(get, set):Bool;
+    private function get_visible():Bool {
+        return widgetRef.ptr.isVisible();
+    }
+    private function set_visible(value:Bool):Bool {
+        widgetRef.ptr.setVisible(value);
+        return value;
+    }
 
     public var mouseTracking(get, set):Bool;
     private function get_mouseTracking():Bool {
@@ -144,6 +153,15 @@ class Widget extends Object {
     }
     private function set_mouseTracking(value:Bool):Bool {
         widgetRef.ptr.setMouseTracking(value);
+        return value;
+    }
+    
+    public var updatesEnabled(get, set):Bool;
+    private function get_updatesEnabled():Bool {
+        return widgetRef.ptr.updatesEnabled();
+    }
+    private function set_updatesEnabled(value:Bool):Bool {
+        widgetRef.ptr.setUpdatesEnabled(value);
         return value;
     }
     
@@ -193,8 +211,12 @@ extern class QWidget extends qt.core.Object.QObject {
     public function setStyleSheet(value:Reference<QString>):Void;
     public function setEnabled(value:Bool):Void;
     public function isEnabled():Bool;
+    public function setVisible(value:Bool):Void;
+    public function isVisible():Bool;
     public function font():qt.gui.Font.QFont;
     public function setFont(value:Reference<qt.gui.Font.QFont>):Void;
     public function hasMouseTracking():Bool;
     public function setMouseTracking(value:Bool):Void;
+    public function updatesEnabled():Bool;
+    public function setUpdatesEnabled(value:Bool):Void;
 }

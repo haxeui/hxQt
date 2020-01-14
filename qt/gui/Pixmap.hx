@@ -1,7 +1,11 @@
 package qt.gui;
+import cpp.Char;
+import cpp.ConstStar;
+import cpp.NativeArray;
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.Reference;
+import cpp.StdString;
 import haxe.Resource;
 import qt.core.ByteArray.QByteArray;
 import qt.gui.PaintDevice;
@@ -32,8 +36,12 @@ class Pixmap extends PaintDevice {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static function fromResource(resourceId:String):Pixmap {
         var imageBytes = Resource.getBytes(resourceId);
-        var stringData = imageBytes.toString();
-        var qba:QByteArray = QByteArray.fromRawData(stringData, stringData.length);
+//        var stringData = imageBytes.toString();
+//        var qba:QByteArray = QByteArray.fromRawData(stringData, stringData.length);
+        var p = NativeArray.address(imageBytes.getData(), 0);
+        var qba:QByteArray = untyped __cpp__("QByteArray::fromRawData((const char *){0}, {1})", p.raw, imageBytes.length);
+//        var qba:QByteArray = QByteArray.fromRawData(imageBytes.getData(), imageBytes.length);
+//        var qba:QByteArray = QByteArray.fromStdString(StdString.ofString(stringData));
         var pixmap = new Pixmap();
         pixmap.loadFromData(qba);
         return pixmap;
