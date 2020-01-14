@@ -15,7 +15,21 @@ class ComboBox extends Widget {
     }
     
     public function insertItem(index:Int, text:String) {
-        comboBoxRef.ptr.insertItem(index, qt.core.QString.Helper.fromString(text));
+        comboBoxRef.ptr.insertItem(index, Helper.fromString(text));
+    }
+    
+    public function addItem(text:String) {
+        comboBoxRef.ptr.addItem(Helper.fromString(text));
+    }
+    
+    public var currentIndex(null, set):Int;
+    private function set_currentIndex(value:Int):Int {
+        comboBoxRef.ptr.setCurrentIndex(value);
+        return value;
+    }
+    
+    public function clear() {
+        comboBoxRef.ptr.clear();
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -46,5 +60,8 @@ extern class QComboBox extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function addItem(text:Reference<QString>):Void;
     public function insertItem(index:Int, text:Reference<QString>):Void;
+    public function clear():Void;
+    public function setCurrentIndex(index:Int):Void;
 }
