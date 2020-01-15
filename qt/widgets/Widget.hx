@@ -104,6 +104,11 @@ class Widget extends Object {
         return value;
     }
 
+    public var minimumWidth(get, null):Int;
+    private function get_minimumWidth():Int {
+        return widgetRef.ptr.minimumWidth();
+    }
+
     public var height(get, set):Int;
     private function get_height():Int {
         return widgetRef.ptr.height();
@@ -111,6 +116,19 @@ class Widget extends Object {
     private function set_height(value:Int):Int {
         widgetRef.ptr.resize(width, value);
         return value;
+    }
+    
+    public var minimumHeight(get, null):Int;
+    private function get_minimumHeight():Int {
+        return widgetRef.ptr.minimumHeight();
+    }
+    
+    public function setMinimumSize(width:Int, height:Int) {
+        widgetRef.ptr.setMinimumSize(width, height);
+    }
+    
+    public function setFixedSize(width:Int, height:Int) {
+        widgetRef.ptr.setFixedSize(width, height);
     }
     
     public var font(get, set):Font;
@@ -217,6 +235,10 @@ extern class QWidget extends QObject {
     public function y():Int;
     public function width():Int;
     public function height():Int;
+    public function minimumWidth():Int;
+    public function minimumHeight():Int;
+    public function setMinimumSize(width:Int, height:Int):Void;
+    public function setFixedSize(width:Int, height:Int):Void;
     public function sizeHint():qt.core.Size.QSize;
     public function move(x:Int, y:Int):Void;
     public function setGeometry(x:Int, y:Int, width:Int, height:Int):Void;
