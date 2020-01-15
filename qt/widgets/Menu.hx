@@ -2,37 +2,33 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
-import qt.widgets.MenuBar.QMenuBar;
+import cpp.Reference;
+import qt.core.QString;
+import qt.widgets.Action.QAction;
 import qt.widgets.Widget.QWidget;
 
-class MainWindow extends Widget {
-    public function new() {
-        if (_ref == null) {
-            _ref = QMainWindow.createInstance().reinterpret();
+class Menu extends Widget {
+    public function new(create:Bool = true) {
+        if (create == true) {
+            if (_ref == null) {
+                _ref = QMenu.createInstance().reinterpret();
+            }
+            
+            super();
         }
-        
-        super();
     }
     
-    public var centralWidget(null, set):Widget;
-    private function set_centralWidget(value:Widget):Widget {
-        mainWindowRef.ptr.setCentralWidget(value.widgetRef);
-        return value;
-    }
-    
-    public var menuBar(get, null):MenuBar;
-    private function get_menuBar():MenuBar {
-        var p = mainWindowRef.ptr.menuBar();
-        var menuBar = new MenuBar(false);
-        menuBar._ref = Pointer.fromRaw(p).reinterpret();
-        return menuBar;
+    public function addAction(text:String):Action {
+        var p = menuRef.ptr.addAction(Helper.fromString(text));
+        var action = new Action();
+        return action;
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Helpers
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private var mainWindowRef(get, null):Pointer<QMainWindow>;
-    private function get_mainWindowRef():Pointer<QMainWindow> {
+    public var menuRef(get, null):Pointer<QMenu>;
+    private function get_menuRef():Pointer<QMenu> {
         return _ref.reinterpret();
     }
 }
@@ -41,20 +37,20 @@ class MainWindow extends Widget {
 // Extern
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 @:unreflective
-@:include('QtWidgets/QMainWindow.h')
-@:native('QMainWindow')
-extern class QMainWindow {
+@:include('QtWidgets/QMenu.h')
+@:native('QMenu')
+@:structAccess
+extern class QMenu extends QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @:native("new QMainWindow")         private static function _new():RawPointer<QMainWindow>;
-                                        public static inline function createInstance():Pointer<QMainWindow> {
+    @:native("new QMenu")               private static function _new():RawPointer<QMenu>;
+                                        public static inline function createInstance():Pointer<QMenu> {
                                             return Pointer.fromRaw(_new());
                                         }
                                         
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public function setCentralWidget(widget:Pointer<QWidget>):Void;                                        
-    public function menuBar():RawPointer<QMenuBar>;
+    public function addAction(title:Reference<QString>):RawPointer<QAction>;
 }

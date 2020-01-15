@@ -16,7 +16,7 @@ class AbstractButton extends Widget {
     
     public var text(null, set):String;
     private function set_text(value:String):String {
-        abstractButtonRef.ptr.setText(qt.core.QString.Helper.fromString(value));
+        abstractButtonRef.ptr.setText(Helper.fromString(value));
         return value;
     }
     
