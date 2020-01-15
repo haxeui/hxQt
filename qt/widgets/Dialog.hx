@@ -1,0 +1,72 @@
+package qt.widgets;
+
+import cpp.Pointer;
+import cpp.RawPointer;
+import qt.widgets.Widget;
+
+class Dialog extends Widget {
+    public function new() {
+        if (_ref == null) {
+            _ref = QDialog.createInstance().reinterpret();
+        }
+        
+        super();
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function accept() {
+        dialogRef.ptr.accept();
+    }
+    
+    public function done(r:Int) {
+        dialogRef.ptr.done(r);
+    }
+    
+    public function exec():Int {
+        return dialogRef.ptr.exec();
+    }
+    
+    public function open() {
+        dialogRef.ptr.open();
+    }
+    
+    public function reject() {
+        dialogRef.ptr.reject();
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Helpers
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public var dialogRef(get, null):Pointer<QDialog>;
+    private function get_dialogRef():Pointer<QDialog> {
+        return _ref.reinterpret();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Extern
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+@:unreflective
+@:include('QtWidgets/QDialog.h')
+@:native('QDialog')
+@:structAccess
+extern class QDialog extends QWidget {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Creation functions
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("new QDialog")             private static function _new():RawPointer<QDialog>;
+                                        public static inline function createInstance():Pointer<QDialog> {
+                                            return Pointer.fromRaw(_new());
+                                        }
+                                        
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function accept():Void;
+    public function done(r:Int):Void;
+    public function exec():Int;
+    public function open():Void;
+    public function reject():Void;
+}
