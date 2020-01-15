@@ -18,10 +18,26 @@ class Menu extends Widget {
         }
     }
     
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function addAction(text:String):Action {
         var p = menuRef.ptr.addAction(Helper.fromString(text));
         var action = new Action();
         return action;
+    }
+    
+    public function addSeparator():Action {
+        var p = menuRef.ptr.addSeparator();
+        var action = new Action();
+        return action;
+    }
+    
+    public function addMenu(title:String):Menu {
+        var p = menuRef.ptr.addMenu(Helper.fromString(title));
+        var menu = new Menu(false);
+        menu._ref = Pointer.fromRaw(p).reinterpret();
+        return menu;
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,4 +69,6 @@ extern class QMenu extends QWidget {
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function addAction(title:Reference<QString>):RawPointer<QAction>;
+    public function addSeparator():RawPointer<QAction>;
+    public function addMenu(title:Reference<QString>):RawPointer<QMenu>;
 }
