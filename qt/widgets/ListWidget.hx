@@ -2,6 +2,8 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
+import haxe.Constraints.Function;
+import qt.core.Object.QObject;
 import qt.widgets.ListView.QListView;
 import qt.widgets.ListWidgetItem.QListWidgetItem;
 
@@ -30,6 +32,11 @@ class ListWidget extends ListView {
     private function set_selectedRow(value:Int):Int {
         listWidgetRef.ptr.setCurrentRow(value);
         return value;
+    }
+    
+    public function connectItemSelectionChanged(fn:Function) {
+        var p:Pointer<QListWidget> = _ref.reinterpret();
+        QObject.connect(p.ptr, QListWidget.itemSelectionChanged, p.ptr, fn);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,4 +71,9 @@ extern class QListWidget extends QListView {
     public function clear():Void;
     public function setCurrentRow(row:Int):Void;
     public function currentRow():Int;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("&QListWidget::itemSelectionChanged") public static var itemSelectionChanged:Function;
 }

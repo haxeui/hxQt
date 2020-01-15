@@ -8,6 +8,7 @@ import qt.core.Object.QObject;
 import qt.core.QString;
 import qt.gui.Icon;
 import qt.gui.Icon.QIcon;
+import qt.widgets.Widget.QWidget;
 
 class AbstractButton extends Widget {
     public function new() {
@@ -17,7 +18,11 @@ class AbstractButton extends Widget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public var text(null, set):String;
+    public var text(get, set):String;
+    private function get_text():String {
+        var s = abstractButtonRef.ptr.text();
+        return Helper.toString(s);
+    }
     private function set_text(value:String):String {
         abstractButtonRef.ptr.setText(Helper.fromString(value));
         return value;
@@ -59,10 +64,11 @@ class AbstractButton extends Widget {
 @:include('QtWidgets/QAbstractButton.h')
 @:native('QAbstractButton')
 @:structAccess
-extern class QAbstractButton extends qt.widgets.Widget.QWidget {
+extern class QAbstractButton extends QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function text():QString;
     public function setText(value:Reference<QString>):Void;
     public function setIcon(value:Reference<QIcon>):Void;
     public function setChecked(value:Bool):Void;

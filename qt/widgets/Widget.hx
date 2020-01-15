@@ -239,7 +239,7 @@ extern class QWidget extends QObject {
     public function minimumHeight():Int;
     public function setMinimumSize(width:Int, height:Int):Void;
     public function setFixedSize(width:Int, height:Int):Void;
-    public function sizeHint():qt.core.Size.QSize;
+    public function sizeHint():QSize;
     public function move(x:Int, y:Int):Void;
     public function setGeometry(x:Int, y:Int, width:Int, height:Int):Void;
     public function geometry():QRect;
