@@ -6,6 +6,7 @@ import cpp.Reference;
 import qt.gui.Pixmap;
 import qt.gui.Pixmap.QPixmap;
 import qt.core.QString;
+import qt.widgets.Frame.QFrame;
 
 class Label extends Frame {
     public function new() {
@@ -18,7 +19,7 @@ class Label extends Frame {
     
     public var text(null, set):String;
     private function set_text(value:String):String {
-        labelRef.ptr.setText(qt.core.QString.Helper.fromString(value));
+        labelRef.ptr.setText(Helper.fromString(value));
         return value;
     }
     
@@ -56,7 +57,7 @@ class Label extends Frame {
 @:include('QtWidgets/QLabel.h')
 @:native('QLabel')
 @:structAccess
-extern class QLabel extends qt.widgets.Frame.QFrame {
+extern class QLabel extends QFrame {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -2,9 +2,12 @@ package qt.widgets;
 
 import cpp.Pointer;
 import cpp.RawPointer;
+import cpp.Reference;
 import haxe.Constraints.Function;
 import qt.core.Object.QObject;
 import qt.core.Orientation;
+import qt.core.QString;
+import qt.widgets.Widget.QWidget;
 
 class ProgressBar extends Widget {
     public function new() {
@@ -15,15 +18,42 @@ class ProgressBar extends Widget {
         super();
     }
     
-    public var value(null, set):Int;
+    public var value(get, set):Int;
+    private function get_value():Int {
+        return progressBarRef.ptr.value();
+    }
     private function set_value(value:Int):Int {
         progressBarRef.ptr.setValue(value);
+        return value;
+    }
+    
+    public var minimum(get, set):Int;
+    private function get_minimum():Int {
+        return progressBarRef.ptr.minimum();
+    }
+    private function set_minimum(value:Int):Int {
+        progressBarRef.ptr.setMinimum(value);
+        return value;
+    }
+    
+    public var maximum(get, set):Int;
+    private function get_maximum():Int {
+        return progressBarRef.ptr.maximum();
+    }
+    private function set_maximum(value:Int):Int {
+        progressBarRef.ptr.setMaximum(value);
         return value;
     }
     
     public var orientation(null, set):Orientation;
     private function set_orientation(value:Orientation):Orientation {
         progressBarRef.ptr.setOrientation(value);
+        return value;
+    }
+    
+    public var format(null, set):String;
+    private function set_format(value:String):String {
+        progressBarRef.ptr.setFormat(Helper.fromString(value));
         return value;
     }
     
@@ -48,7 +78,7 @@ class ProgressBar extends Widget {
 @:include('QtWidgets/QProgressBar.h')
 @:native('QProgressBar')
 @:structAccess
-extern class QProgressBar extends qt.widgets.Widget.QWidget {
+extern class QProgressBar extends QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Creation functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +91,14 @@ extern class QProgressBar extends qt.widgets.Widget.QWidget {
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function setValue(value:Int):Void;
+    public function value():Int;
     public function setOrientation(value:Orientation):Void;
+    public function setFormat(value:Reference<QString>):Void;
+
+    public function setMinimum(value:Int):Void;
+    public function minimum():Int;
+    public function setMaximum(value:Int):Void;
+    public function maximum():Int;
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Signals

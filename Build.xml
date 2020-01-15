@@ -5,6 +5,7 @@
         <files id="haxe">
             <compilerflag value="-I${QTPATH}/include"/>
             <compilerflag value="-I${haxelib:hxQt}/include"/>
+            <compilerflag value="-DQT_NO_KEYWORDS" />
         </files>
         <target id="haxe">
             <lib name="${QTPATH}/lib/Qt5Core.lib" />
