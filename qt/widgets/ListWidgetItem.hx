@@ -18,7 +18,7 @@ class ListWidgetItem {
     
     public var text(null, set):String;
     private function set_text(value:String):String {
-        listWidgetItemRef.ptr.setText(qt.core.QString.Helper.fromString(value));
+        listWidgetItemRef.ptr.setText(Helper.fromString(value));
         return value;
     }
     
@@ -26,6 +26,13 @@ class ListWidgetItem {
     private function set_icon(value:Icon):Icon {
         listWidgetItemRef.ptr.setIcon(value.iconRef.ref);
         return value;
+    }
+    
+    public function destroy() {
+        if (_ref != null) {
+            _ref.destroy();
+            _ref = null;
+        }
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

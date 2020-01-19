@@ -3,6 +3,8 @@ package qt.widgets;
 import cpp.Pointer;
 import cpp.RawPointer;
 import cpp.Reference;
+import haxe.Constraints.Function;
+import qt.core.Object.QObject;
 import qt.core.QString;
 
 class LineEdit extends Widget {
@@ -14,10 +16,32 @@ class LineEdit extends Widget {
         super();
     }
     
-    public var text(null, set):String;
+    public var text(get, set):String;
+    private function get_text():String {
+        var s = lineEditRef.ptr.text();
+        return Helper.toString(s);
+    }
     private function set_text(value:String):String {
         lineEditRef.ptr.setText(qt.core.QString.Helper.fromString(value));
         return value;
+    }
+    
+    public var placeholderText(get, set):String;
+    private function get_placeholderText():String {
+        var s = lineEditRef.ptr.placeholderText();
+        return Helper.toString(s);
+    }
+    private function set_placeholderText(value:String):String {
+        lineEditRef.ptr.setPlaceholderText(qt.core.QString.Helper.fromString(value));
+        return value;
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function connectTextChanged(fn:Function) {
+        var p:Pointer<QLineEdit> = _ref.reinterpret();
+        QObject.connect(p.ptr, QLineEdit.textChanged, p.ptr, fn);
     }
     
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,5 +72,13 @@ extern class QLineEdit extends qt.widgets.Widget.QWidget {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     // API
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public function text():QString;
     public function setText(value:Reference<QString>):Void;
+    public function placeholderText():QString;
+    public function setPlaceholderText(value:Reference<QString>):Void;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Signals
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @:native("&QLineEdit::textChanged") public static var textChanged:Function;
 }
